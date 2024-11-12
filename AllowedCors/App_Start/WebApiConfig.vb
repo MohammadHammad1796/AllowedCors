@@ -2,6 +2,7 @@
 Imports System.Collections.Generic
 Imports System.Linq
 Imports System.Web.Http
+Imports System.Web.Http.Cors
 
 Public Module WebApiConfig
     Public Sub Register(ByVal config As HttpConfiguration)
@@ -9,6 +10,11 @@ Public Module WebApiConfig
 
         ' Web API routes
         config.MapHttpAttributeRoutes()
+
+#If DEBUG Then
+        Dim corsConfig = New EnableCorsAttribute("https://www.youtube.com", "*", "*")
+        config.EnableCors(corsConfig)
+#End If
 
         config.Routes.MapHttpRoute(
             name:="DefaultApi",
